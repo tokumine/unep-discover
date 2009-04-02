@@ -1,0 +1,2 @@
+class Diagram < Image
+end

@@ -1,0 +1,14 @@
+<% form_for [@theme,@question,@content] do |map_datum| %>
+	<p>
+    <%= map_datum.label :map_URL %>
+    <%= map_datum.text_field :url, :class => "text normal" %>
+  </p>
+	<p>
+    <%= map_datum.label :map_title %>
+    <%= map_datum.text_field :title, :class => "text normal" %>
+  </p>
+	
+ 	<%= f.submit 'Create' %>
+<% end -%>
+<hr>
+

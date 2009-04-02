@@ -1,0 +1,23 @@
+	<% content_for :title do -%>
+	Add map to <%= @content.title %> 
+	<% end -%>
+
+	<% content_for :left_body do %>
+
+		<% form_for([@content.becomes(Content), @map]) do |p| %>
+		<div class="add_info">
+		 	<%= p.error_messages %>
+			 <p>
+			   <%= p.label :map_URL %>
+			   <%= p.text_field :url, :class => "text normal" %>
+			 </p>
+			 <p>
+			   <%= p.label :map_title %>
+			   <%= p.text_field :title, :class => "text normal" %>
+			 </p>
+			 <p>
+			    <%= p.submit 'Create', :disable_with => "Please wait..." %> or <%= link_to "back", [@content.question.theme, @content.question], :class => "add_info_button red"%>
+			 </p>
+			</div>
+		<% end -%>
+	<% end -%>

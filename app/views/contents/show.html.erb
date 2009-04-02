@@ -1,0 +1,18 @@
+<p>
+  <b>Type:</b>
+  <%=h @content.type %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%=h @content.title %>
+</p>
+
+<p>
+  <b>Body:</b>
+  <%=h @content.body %>
+</p>
+
+
+<%= link_to 'Edit', edit_content_path(@content) %> |
+<%= link_to 'Back', contents_path %>

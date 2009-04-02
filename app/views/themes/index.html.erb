@@ -1,0 +1,45 @@
+<% content_for :page_menu do -%>
+	<div class="button_bar">
+	<span class="loud">Actions: </span>
+	<%= link_to 'New theme', new_theme_path %>
+	</div>
+<% end -%>
+
+
+<% content_for :title do -%>
+Thematic areas of UNEP
+<% end -%>
+
+<% content_for :theme_body do %>
+<div class="theme_text">
+
+<p>Explore how UNEP is helping to understand your world by browsing our outputs below.</p>
+</div>
+<% @themes.each_with_index do |theme, index| %>
+<div class="span-7 append-bottom <%= 'append-1' if (index+1)%3 != 0 %> <%= 'last' if (index+1)%3 == 0%>">
+
+				<div style="position:relative;" class="hover_text">
+					<%= link_to image_tag(theme.image.url(:span7), :class => "main_image"), theme %>
+					<div class="transparent_grey" style="display:none;">
+						<p>
+							<%= link_to truncate(theme.description,350), theme, :style => "color:white;text-decoration:none;"  %>
+							<%= link_to image_tag("icons/page_edit.png"), edit_theme_path(theme) %>
+						  <%= link_to image_tag("icons/delete.png"), theme, :confirm => 'Are you sure?', :method => :delete %>
+						</p>
+						
+					</div>
+					<div class="transparent_black">
+						<h2 class="cufon" style="color:#fff; margin:0;padding:0;"><%= link_to theme.title, theme %></h2>
+						<h4 class="cufon"><%= h pluralize(theme.questions.size, 'question') %></h4>
+					</div>						
+				</div>
+
+
+	
+</div>
+<% end -%>
+
+<div class="clear"></div>
+
+<% end -%>
+

@@ -1,0 +1,20 @@
+<h1>Editing map_datum</h1>
+
+<% form_for(@map_datum) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :url %><br />
+    <%= f.text_field :url %>
+  </p>
+  <p>
+    <%= f.label :question_id %><br />
+    <%= f.text_field :question_id %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @map_datum %> |
+<%= link_to 'Back', map_data_path %>

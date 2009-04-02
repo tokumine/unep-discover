@@ -1,0 +1,25 @@
+<% content_for :title do -%>
+<%= link_to @theme.title, @theme %> &gt; Edit Question
+<% end -%>
+
+<% content_for :left_body do %>	
+
+<div class="add_info">
+<% form_for([@theme,@question]) do |f| %>
+  <%= f.error_messages %>
+		<p>
+			<%= f.label :question_title %><br>
+	    <%= f.text_field :title, :class => "text title"%> 
+	  </p>
+
+		<p>
+			<%= f.label :key_words %><br>
+	    <%= f.text_field :keyword_list, :class => "text" %>     
+	  </p>
+
+		<p>
+		<%= f.submit 'Update' %>
+<% end %>
+</div>
+
+<% end -%>

@@ -1,0 +1,18 @@
+<p>
+  <b>Type:</b>
+  <%=h @summary.type %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%=h @summary.title %>
+</p>
+
+<p>
+  <b>Body:</b>
+  <%=h @summary.body %>
+</p>
+
+
+<%= link_to 'Edit', edit_summary_path(@summary) %> |
+<%= link_to 'Back', summaries_path %>

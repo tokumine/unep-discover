@@ -1,0 +1,39 @@
+<% content_for :title do -%>
+<%= @theme.title %>
+<% end -%>
+
+<% content_for :theme_body do %>
+<div class="theme_text">
+<%= image_tag(@theme.image.url(:flickr), :class => "main_image", :style => "float:left;margin-right:1em;margin-top:0.4em;")%>	
+<%= RedCloth.new(@theme.description).to_html %>
+</div>
+<h2 class="cufon prepend-top"><%= pluralize(@theme.questions.size, 'question') %></h2>
+<% @questions.each_with_index do |question, index| %>
+<div class="span-7 append-bottom <%= 'append-1' if (index+1)%3 != 0 %> <%= 'last' if (index+1)%3 == 0%>">
+
+				<div style="position:relative;" class="hover_text">
+					<% if question.has_photo? %>
+					<%= link_to image_tag(question.first_photo.image.url(:span7), :class => "main_image"), [@theme, question] %>
+					<% else %>
+					<%= link_to image_tag(@theme.image.url(:span7), :class => "main_image"), [@theme, question] %>
+					<% end -%>
+					<div class="transparent_question">
+						<h3 class="cufon" style="color:#fff; margin:0;padding:0;"><%= link_to question.title, [@theme, question] %></h2>
+					</div>
+					<div class="clear">&nbsp;</div>						
+				</div>
+</div>
+<% end -%>
+
+<% end -%>
+
+<% content_for :page_menu do -%>
+	<div class="button_bar">
+	<span class="loud">Actions: </span>
+	<%= link_to "Edit", edit_theme_path(@theme)%>,  
+	<%= link_to "New Question", new_theme_question_url(@theme) %>	
+	</div>
+<% end -%>
+
+<% content_for :right_body do %>
+<% end -%>

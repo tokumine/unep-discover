@@ -1,0 +1,24 @@
+<h1>Listing introductions</h1>
+
+<table>
+  <tr>
+    <th>Type</th>
+    <th>Title</th>
+    <th>Body</th>
+  </tr>
+
+<% @introductions.each do |introduction| %>
+  <tr>
+    <td><%=h introduction.type %></td>
+    <td><%=h introduction.title %></td>
+    <td><%=h introduction.body %></td>
+    <td><%= link_to 'Show', introduction %></td>
+    <td><%= link_to 'Edit', edit_introduction_path(introduction) %></td>
+    <td><%= link_to 'Destroy', introduction, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New introduction', new_introduction_path %>

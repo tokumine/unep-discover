@@ -1,0 +1,36 @@
+<% if !content.map_data.empty? %>
+	<div class="span-15 last append-bottom">
+	<script type="text/javascript">
+	   swfobject.registerObject("myId", "9.0.0", "expressInstall.swf");
+	   </script>
+
+	<object id="myId" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="590" height="400">
+
+	        <param name="movie" value="/images/UNEPquestions.swf" />
+	        <!--[if !IE]>-->
+	        <object type="application/x-shockwave-flash" data="/images/UNEPquestions.swf" width="590" height="400">
+	        <!--<![endif]-->
+	          <p>Please install Flash to see map viewer</p>
+	        <!--[if !IE]>-->
+	        </object>
+	        <!--<![endif]-->
+	      </object>
+	</div>
+	<h6><%= content.map.title %></h6>
+	<div class="span-15">
+			<ul class="">
+			<% content.map_data.each do |map_datum| %>
+				<li><%= link_to map_datum.title, map_datum.url %> <%= link_to image_tag("icons/bullet_delete.png"), [content.becomes(Content), map_datum], :method => "delete", :confirm => "are you sure?"%>
+						<ul>
+						<% map_datum.map_layers.each do |layer| %>
+								<li>
+									<%= render :partial => 'layer', :locals => {:layer => layer} %>
+								</li>
+						<% end -%>
+						</ul>
+					</li>
+			<% end -%>
+			</ul>
+	</div>
+	
+<% end -%>

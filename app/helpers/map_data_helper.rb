@@ -1,0 +1,2 @@
+module MapDataHelper
+end

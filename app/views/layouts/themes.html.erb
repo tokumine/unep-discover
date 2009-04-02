@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? %>
+	<%= javascript_include_tag 'jquery-1.3.1.min', 'jquery.cycle.all.min', 'jquery.easing.1.3', 'cufon-yui', 'Futura_Bk_400.font', "swfobject", 'application' %>
+	<%= stylesheet_link_tag 'blueprint/screen', 'blueprint/plugins/buttons/screen','unep-wcmc' %>
+<!--[if IE]><%= stylesheet_link_tag 'blueprint/ie.css' %><![endif]-->
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>United Nations World Conservation Monitoring Centre | Home</title>
+<!-- Copyright 2001, 2002, 2003, 2004, 2005 Macromedia, Inc. All rights reserved. -->
+</head>
+
+<body>
+
+<div class="container">
+	<%= render :partial => 'layouts/admin_menu' %>
+
+	<!-- TOP BAR WITH LOGO -->
+  <div class="span-23 " id="headerBg">
+  	<div class="span-5" >
+				<%= link_to image_tag("unep_one_data_logo.png", :id => "logo"), root_url %>
+	  </div>
+  	<div class="span-18 last" >
+				<form style="margin-top:2em; margin-right:2em; float:right;">
+	     	  <input type="text" class="text mini_search" style="width:150px" name="search" /> <input type="submit" value="search" />
+	     </form>
+	  </div>
+	</div>
+  
+	<div class="span-23 one_menu">
+		<div class="menu_space">
+		<%= link_to "Home", root_url %> | 
+		<%= link_to "Themes", themes_url %>
+		</div>
+	</div>
+   
+ 	
+    <!-- WHITE SPACE -->
+    <div class="span-23">
+    &nbsp;
+    </div>
+
+	
+    <!-- 3 COL CONTENT WITH WRAPPER -->
+    
+    <div class="span-23 ">
+			<%= yield :page_menu %>
+  	  <h2 class="cufon" style="color:#003366"><%= yield :title %></h2>
+			
+			<% if !flash[:notice].blank? %>
+				<div class="notice" id="flash">
+					<%= flash[:notice] %>
+				</div>
+			<% end -%>
+			
+			<%= yield :theme_body %>
+    </div>
+        
+	
+		<%= render :partial => 'layouts/footer' %>
+
+</body>
+</html>

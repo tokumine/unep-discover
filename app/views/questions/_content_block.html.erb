@@ -1,0 +1,10 @@
+<h6><%=h content_block.title %></h6>
+<%= link_to "edit", edit_theme_question_content_path(@theme, @question, content_block), :class => "button mini_button"%>
+<%= link_to "delete", theme_question_content_path(@theme, @question, content_block), :method => :delete, :class => "button mini_button negative", :confirm => "are you sure you want to delete this entire content block including the images and maps?"%>
+<%= link_to "+ photo", new_content_photo_path(content_block), :class => "button mini_button positive"%> 
+<%= link_to "+ map", new_content_map_datum_path(content_block), :class => "button mini_button positive" %>
+	<div class="clear"></div>
+<p><%= RedCloth.new(content_block.body).to_html %></p>
+<%= render :partial => 'questions/image_list', :locals => {:content => content_block}  %>
+<%= render :partial => 'questions/map_list',:locals => {:content => content_block} %>
+<div class="clear"></div>			

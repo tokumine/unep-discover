@@ -1,0 +1,18 @@
+<p>
+  <b>Type:</b>
+  <%=h @analysis.type %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%=h @analysis.title %>
+</p>
+
+<p>
+  <b>Body:</b>
+  <%=h @analysis.body %>
+</p>
+
+
+<%= link_to 'Edit', edit_analysis_path(@analysis) %> |
+<%= link_to 'Back', analyses_path %>

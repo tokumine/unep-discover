@@ -1,0 +1,22 @@
+<% form_for([@theme,@question,@content.becomes(Content)]) do |f| %>
+
+		  <%= f.error_messages %>
+
+		  <p>
+		    <%= f.label :title %>
+		    <%= f.text_field :title, :class => "text title" %>
+		  </p>
+		  <p>
+		    <%= f.label :body %>
+		    <%= f.text_area :body, :class => "text" %><br>
+				<span style="margin:0 0 0 60px;padding:0;" class="quiet small"><%= link_to "Click here", "http://hobix.com/textile/quick.html", :target => "_blank" %> for formatting tips</span>
+		  </p>
+		  <p>
+		    <%= f.label :type %>
+		    <%= select_tag "content[type]", options_for_select([ "", "Summary", "Introduction", "Analysis", "Output" ], @content.type) %>
+		  </p>
+			<hr>
+		  <p>
+		    <%= f.submit button, :disable_with => "Please wait..." %> or <%= link_to "Cancel", theme_question_path(@theme, @question), :class => "add_info_button red"%>
+		  </p>
+		<% end %>

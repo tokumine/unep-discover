@@ -1,0 +1,43 @@
+<p>
+  <b>Name:</b>
+  <%=h @map_meta.name %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%=h @map_meta.title %>
+</p>
+
+<p>
+  <b>Abstract:</b>
+  <%=h @map_meta.abstract %>
+</p>
+
+<p>
+  <b>Westboundlongitude:</b>
+  <%=h @map_meta.westBoundLongitude %>
+</p>
+
+<p>
+  <b>Eastboundlongitude:</b>
+  <%=h @map_meta.eastBoundLongitude %>
+</p>
+
+<p>
+  <b>Northboundlongitude:</b>
+  <%=h @map_meta.northBoundLongitude %>
+</p>
+
+<p>
+  <b>Southboundlongitude:</b>
+  <%=h @map_meta.southBoundLongitude %>
+</p>
+
+<p>
+  <b>Map datum:</b>
+  <%=h @map_meta.map_datum_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_map_meta_path(@map_meta) %> |
+<%= link_to 'Back', map_metas_path %>

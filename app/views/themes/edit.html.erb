@@ -1,0 +1,29 @@
+<% content_for :title do -%>
+New theme
+<% end -%>
+
+<% content_for :left_body do %>
+<div class="add_info">
+<% form_for(@theme, :html => { :multipart => true }) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :title %><br />
+    <%= f.text_field :title, :class => "text" %>
+  </p>
+  <p>
+    <%= f.label :description %><br />
+    <%= f.text_area :description, :class => "text" %>
+  </p>
+	<p>
+    <%= f.label :image %><br />
+		<%= f.file_field :image, :class => "file" %>			
+	</p>
+
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+</div>
+
+<% end -%>

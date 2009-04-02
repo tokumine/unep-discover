@@ -1,0 +1,38 @@
+<p>
+  <b>Title:</b>
+  <%=h @map.title %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%=h @map.description %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%=h @map.content_id %>
+</p>
+
+<p>
+  <b>Tl:</b>
+  <%=h @map.tl %>
+</p>
+
+<p>
+  <b>Tr:</b>
+  <%=h @map.tr %>
+</p>
+
+<p>
+  <b>Bl:</b>
+  <%=h @map.bl %>
+</p>
+
+<p>
+  <b>Br:</b>
+  <%=h @map.br %>
+</p>
+
+
+<%= link_to 'Edit', edit_map_path(@map) %> |
+<%= link_to 'Back', maps_path %>

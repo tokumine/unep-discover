@@ -1,0 +1,18 @@
+<p>
+  <b>Type:</b>
+  <%=h @introduction.type %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%=h @introduction.title %>
+</p>
+
+<p>
+  <b>Body:</b>
+  <%=h @introduction.body %>
+</p>
+
+
+<%= link_to 'Edit', edit_introduction_path(@introduction) %> |
+<%= link_to 'Back', introductions_path %>

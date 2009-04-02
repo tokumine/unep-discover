@@ -1,0 +1,34 @@
+<h1>Listing map_metas</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Title</th>
+    <th>Abstract</th>
+    <th>Westboundlongitude</th>
+    <th>Eastboundlongitude</th>
+    <th>Northboundlongitude</th>
+    <th>Southboundlongitude</th>
+    <th>Map datum</th>
+  </tr>
+
+<% @map_metas.each do |map_meta| %>
+  <tr>
+    <td><%=h map_meta.name %></td>
+    <td><%=h map_meta.title %></td>
+    <td><%=h map_meta.abstract %></td>
+    <td><%=h map_meta.westBoundLongitude %></td>
+    <td><%=h map_meta.eastBoundLongitude %></td>
+    <td><%=h map_meta.northBoundLongitude %></td>
+    <td><%=h map_meta.southBoundLongitude %></td>
+    <td><%=h map_meta.map_datum_id %></td>
+    <td><%= link_to 'Show', map_meta %></td>
+    <td><%= link_to 'Edit', edit_map_meta_path(map_meta) %></td>
+    <td><%= link_to 'Destroy', map_meta, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New map_meta', new_map_meta_path %>

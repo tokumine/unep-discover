@@ -1,0 +1,33 @@
+<p>
+  <b>Type:</b>
+  <%=h @table.type %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%=h @table.name %>
+</p>
+
+<p>
+  <b>Image file name:</b>
+  <%=h @table.image_file_name %>
+</p>
+
+<p>
+  <b>Image content type:</b>
+  <%=h @table.image_content_type %>
+</p>
+
+<p>
+  <b>Image file size:</b>
+  <%=h @table.image_file_size %>
+</p>
+
+<p>
+  <b>Image updated at:</b>
+  <%=h @table.image_updated_at %>
+</p>
+
+
+<%= link_to 'Edit', edit_table_path(@table) %> |
+<%= link_to 'Back', tables_path %>

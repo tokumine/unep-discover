@@ -1,0 +1,2 @@
+class Output < Content
+end

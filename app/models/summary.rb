@@ -1,0 +1,2 @@
+class Summary < Content
+end

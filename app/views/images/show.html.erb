@@ -1,0 +1,33 @@
+<p>
+  <b>Type:</b>
+  <%=h @image.type %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%=h @image.name %>
+</p>
+
+<p>
+  <b>Image file name:</b>
+  <%=h @image.image_file_name %>
+</p>
+
+<p>
+  <b>Image content type:</b>
+  <%=h @image.image_content_type %>
+</p>
+
+<p>
+  <b>Image file size:</b>
+  <%=h @image.image_file_size %>
+</p>
+
+<p>
+  <b>Image updated at:</b>
+  <%=h @image.image_updated_at %>
+</p>
+
+
+<%= link_to 'Edit', edit_image_path(@image) %> |
+<%= link_to 'Back', images_path %>

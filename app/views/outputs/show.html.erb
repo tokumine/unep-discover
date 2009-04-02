@@ -1,0 +1,18 @@
+<p>
+  <b>Type:</b>
+  <%=h @output.type %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%=h @output.title %>
+</p>
+
+<p>
+  <b>Body:</b>
+  <%=h @output.body %>
+</p>
+
+
+<%= link_to 'Edit', edit_output_path(@output) %> |
+<%= link_to 'Back', outputs_path %>

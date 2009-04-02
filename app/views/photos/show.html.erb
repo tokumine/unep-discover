@@ -1,0 +1,7 @@
+<% content_for :title do %>
+<%= @photo.name %>
+<% end -%>
+<% content_for :left_body do %>
+<%= image_tag @photo.image.url(:full_width)%>
+<div class="clear">&nbsp;<div>
+<% end -%>

@@ -1,0 +1,18 @@
+<% if @question.introduction %>
+	<h3 class="cufon">Introduction</h3>
+	<%=h @question.introduction.body %>
+<% end -%>
+
+<% if !@question.analyses.empty? %>
+<h3 class="cufon">Analysis</h3>
+	<% @question.analyses.each do |analysis|%>
+		<%= h analysis.body %>
+	<% end -%>
+<% end -%>
+
+<% if !@question.outputs.empty? %>
+<h3 class="cufon">Outputs</h3>
+	<% @question.outputs.each do |output|%>
+		<%= h output.body %>
+	<% end -%>
+<% end -%>

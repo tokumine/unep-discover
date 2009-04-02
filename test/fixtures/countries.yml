@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  iso: MyString
+  iso_3: MyString
+  capital: MyString
+  population: 1
+  area: 1
+  region_id: 1
+
+two:
+  name: MyString
+  iso: MyString
+  iso_3: MyString
+  capital: MyString
+  population: 1
+  area: 1
+  region_id: 1

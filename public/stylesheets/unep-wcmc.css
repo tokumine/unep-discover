@@ -1,0 +1,308 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+.container{}
+
+.content_background_gradient{
+	background-image:url(../images/topGradient.jpg);
+	background-repeat:repeat-x;
+	background-position:bottom;
+	position:relative; 
+	bottom:
+
+}
+
+h2 {font-weight:normal;color:#003366;}
+
+h4.cufon {margin-bottom:0;}
+
+h6 {color:#003366; font-weight: bolder; letter-spacing:0.4px;}
+
+a {color:#003366;text-decoration:none;}
+
+.box {
+	border-top:1px solid #96BAFD;
+	border-bottom:1px solid #96BAFD;	
+}
+img#logo{
+	margin-top:15px;margin-left:10px;
+}
+a:hover
+{
+text-decoration:underline;
+}
+
+.content_background_gradient
+{
+	
+}
+
+.mini_grad{
+	background:url(../images/small_footer_grad.png) top left repeat-x;
+}
+
+.dark_blue_top, .light_blue_top {
+	background: #003366;
+	height:0.65em;
+	margin-bottom:0.5em;
+}
+
+.light_blue_top{
+	background:#40668b;
+}
+
+
+#nav li{
+	width: 268px;
+	list-style:none;
+	padding:10px;
+	margin:0px 0;
+	height:20px;
+}
+
+
+
+li.decisions_style, li.decisions_style a{
+	background:#335c21;
+	color: white;
+}
+
+
+li.knowledge_style, li.knowledge_style a{
+	background:#254471;
+	color: white;
+}
+
+li.information_style, li.information_style a{
+	background:#26480C;
+	color: white;
+}
+
+li.partnership_style,li.partnership_style a{
+	background:#20201e;
+	color: white;
+}
+
+
+
+
+img.polaroid{
+	padding:3px; 
+	border:1px solid #ddd;
+}
+
+.one_menu{
+	background: url(../images/menu_back_hover.png) top left repeat-x;
+	height:29px;
+}
+
+.menu_space{
+	padding-top:5px;
+	color:#999;
+}
+
+.menu_space a {
+	color:#333;
+	margin:0 10px;
+}
+
+.admin_menu{
+	background: #40668b;
+	color: #ccc;
+}
+.admin_menu a {
+	color:white;
+	font-weight:bold;
+}
+
+.button_bar{
+	background: #EDF3FE;
+	padding:1em;
+	margin-bottom:1em;
+	color:#ccc;
+}
+
+.button_bar a {
+	font-weight: bold;
+	color: #0033CC;
+}
+.add_info{
+	background:#F2F2F2;
+	border:1px solid #DDDDDD;
+	border-width:1px;
+	padding:1em;
+	position:relative;
+	margin-bottom:1em;
+}
+
+.main_image{
+	border:1px solid #aaa;
+}
+
+.transparent_black{
+	position:absolute; bottom:0; left:0; padding:1em;background: transparent url("../images/transparent_back.png"); width:249px; color:white; font-weight:bold;font-size:0.8em;
+}
+
+.transparent_grey{
+	position:absolute; top:0; left:0; padding:1em;background: transparent url("../images/transparent_back.png"); width:244px; color:white; font-size:1em; height:191px;
+}
+
+.transparent_question{
+	background: url("../images/transparent_back.png");
+	padding:1em;	
+	position:absolute; bottom:20px; left:0;
+}
+.transparent_question a {
+	color: #fff;
+}
+
+.low{
+	height:126px;
+}
+
+.theme_text{
+	font-size:1.4em;
+}
+
+.transparent_black .cufon{
+	color:#fff;
+}
+
+.transparent_black .cufon a {
+	color:#fff;
+}
+
+.image_wrap{
+	margin: 0 0em 1em 0em;
+	border:1px solid #ccc;	
+}
+
+.image_name{
+	padding:5px;
+	font-weight:bold;
+	font-size:0.8em;
+	background:#eee;
+	border-top: 1px solid #ccc;
+}
+
+.activate_button{
+	font-size:0.5em;
+	background: #999;
+	color:#fff;
+	padding:0px 2px;
+}
+
+a.mini_button{
+	font-size:8px;
+	padding:1px;
+	color:#333;
+}
+
+.add_info label{
+	color:#888;
+	display:block;
+	width:50px;
+	float:left;
+	text-align:right;
+	vertical-align:top;
+	margin-top:10px;
+}
+
+
+.add_info input[type="text"], textarea, input[type="file"]{
+	margin-top:8px;
+width:auto; 
+margin-left:10px;
+border-color: #aaa #aaa #ccc #ccc;
+width:480px;
+}
+
+select{
+	margin-top:8px;
+	width:auto; 
+	margin-left:10px;
+}
+
+.add_info textarea{
+	height:250px;
+	font-size:1em;
+}
+.add_info input.normal{
+	font-size:1em;
+}
+
+.errorExplanation{
+	background:red;
+	padding:1em;
+	margin-bottom:1em;
+	background:#FBE3E4;color:#8a1f11;
+	border-color:#FBC2C4;
+	border:2px solid #FBC2C4;
+	border-width:2px 0;
+}
+
+.red {
+	color: red;
+	text-decoration:underline;
+}
+.errorExplanation h2{
+	font-size:1.3em;
+}
+
+#headerBg2
+{
+	/*background:url(../images/topgradientBlue.jpg);*/
+	background-repeat:repeat-x;
+	background-position:bottom;
+	height:5.3em;
+	position:relative; 
+	bottom:-12px;
+}
+
+#headerBg3
+{
+	background:url(../images/topHeaderBox.jpg);
+	background-repeat:repeat-x;
+	background-position:bottom;
+	height:5.9em;
+}
+
+
+#headerBg
+{
+	background: url(../images/new_top_back_gradient.png);
+	background-repeat:repeat-x;
+	background-position:top;
+	height:82px;
+}
+
+
+
+#footer
+{
+	
+}
+
+#whiteLi 
+{
+	color:#EEE;
+	text-decoration:none;
+}
+
+
+#newsh6
+{
+	background-color:#CCC; 
+	color:#FFF;
+	font-weight: bold
+}
+	
+
+
+.quiet2
+{
+	color:#999999;
+	font-size:1em;
+}
+

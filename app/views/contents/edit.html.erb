@@ -1,0 +1,9 @@
+<% content_for :title do -%>
+	Edit <%=h @content.title %> 
+<% end -%>
+
+<% content_for :left_body do %>
+<div class="add_info">
+	<%= render :partial => 'questions/question_form', :locals => {:button => "Update"} %>
+</div>
+<% end -%>

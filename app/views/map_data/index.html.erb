@@ -1,0 +1,22 @@
+<h1>Listing map_data</h1>
+
+<table>
+  <tr>
+    <th>Url</th>
+    <th>Question</th>
+  </tr>
+
+<% @map_data.each do |map_datum| %>
+  <tr>
+    <td><%=h map_datum.url %></td>
+    <td><%=h map_datum.question_id %></td>
+    <td><%= link_to 'Show', map_datum %></td>
+    <td><%= link_to 'Edit', edit_map_datum_path(map_datum) %></td>
+    <td><%= link_to 'Destroy', map_datum, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New map_datum', new_map_datum_path %>

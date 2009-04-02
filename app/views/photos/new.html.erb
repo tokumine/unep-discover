@@ -1,0 +1,23 @@
+<% content_for :title do -%>
+Add image to <%= @content.title %> 
+<% end -%>
+
+<% content_for :left_body do %>
+
+	<% form_for([@content.becomes(Content), @photo], :html => { :multipart => true }) do |p| %>
+	<div class="add_info">
+	 	<%= p.error_messages %>
+		<p>
+	    <%= p.label :image %>
+			<%= p.file_field :image, :class => "file" %>			
+		</p>
+		<p>
+	    <%= p.label :image_name %>
+			<%= p.text_field :name, :class => "text normal" %>
+		</p>
+		 <p>
+		    <%= p.submit 'Create', :disable_with => "Please wait..." %> or <%= link_to "back", [@content.question.theme, @content.question], :class => "add_info_button red"%>
+		 </p>
+		</div>
+<% end -%>
+<% end -%>

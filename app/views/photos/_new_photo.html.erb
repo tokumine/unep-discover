@@ -1,0 +1,12 @@
+<div class="add_info">
+<% form_for([@theme,@question,@content,Photo.new], :html => { :multipart => true }) do |p| %>
+		<p>
+	    <%= p.label :image %>
+			<%= p.file_field :image, :class => "file" %>			
+		</p>
+		<p>
+	    <%= p.label :image_name %>
+			<%= p.text_field :name, :class => "text normal" %>
+		</p>
+<% end -%>
+</div>

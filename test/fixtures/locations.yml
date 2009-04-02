@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  global: false
+  region_id: 1
+  country_id: 1
+  question_id: 1
+
+two:
+  global: false
+  region_id: 1
+  country_id: 1
+  question_id: 1

@@ -1,0 +1,24 @@
+<h1>Listing outputs</h1>
+
+<table>
+  <tr>
+    <th>Type</th>
+    <th>Title</th>
+    <th>Body</th>
+  </tr>
+
+<% @outputs.each do |output| %>
+  <tr>
+    <td><%=h output.type %></td>
+    <td><%=h output.title %></td>
+    <td><%=h output.body %></td>
+    <td><%= link_to 'Show', output %></td>
+    <td><%= link_to 'Edit', edit_output_path(output) %></td>
+    <td><%= link_to 'Destroy', output, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New output', new_output_path %>

@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  title: "How much of our drinking water is protected?"
+  state: published
+
+two:
+  title: "Which population centres are most at risk of desertification, and where will those people go?"
+  state: draft

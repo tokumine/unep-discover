@@ -1,0 +1,50 @@
+<% content_for :page_menu do -%>
+	<div class="button_bar">
+	<span class="loud">Add: </span>
+		<%= link_to "New content", "#", :class=> "add_info_button" %>, 
+		<%= link_to "Edit title", edit_theme_question_path(@theme, @question)%>
+		
+	</div>
+<% end -%>
+
+<% content_for :title do -%>
+<%=h @question.title %> 
+<% end -%>
+
+<% content_for :left_body do %>
+
+
+	<div class="add_info" <%= @content.errors.empty? ? "style='display:none;'": "" %>>		
+		<%= render :partial => 'questions/question_form', :locals => {:button => "Create"} %>
+	</div>
+	
+	<% if @question.summary %>
+		<%= render :partial => 'questions/content_block', :locals => {:content_block => @question.summary} %>		
+		<hr>
+	<% end -%>
+
+
+
+	<% if @question.introduction %>
+		<h3 class="cufon">Introduction</h3>
+		<%= render :partial => 'questions/content_block', :locals => {:content_block => @question.introduction} %>		
+		<hr>
+	<% end -%>
+
+	<% if !@question.analyses.empty? %>
+		<h3 class="cufon">Analysis</h3>
+		<%= render :partial => 'questions/content_block', :collection => @question.analyses %>		
+		<hr>
+	<% end -%>
+
+	<% if !@question.outputs.empty? %>
+	<h3 class="cufon">Outputs</h3>
+	<%= render :partial => 'questions/content_block', :collection => @question.outputs %>		
+	<% end -%>
+	<div class="clear">&nbsp;</div>
+<% end -%>
+
+<% content_for :right_body do %>
+
+<% end -%>
+

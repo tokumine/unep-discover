@@ -1,0 +1,40 @@
+<h1>Editing country</h1>
+
+<% form_for(@country) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :iso %><br />
+    <%= f.text_field :iso %>
+  </p>
+  <p>
+    <%= f.label :iso_3 %><br />
+    <%= f.text_field :iso_3 %>
+  </p>
+  <p>
+    <%= f.label :capital %><br />
+    <%= f.text_field :capital %>
+  </p>
+  <p>
+    <%= f.label :population %><br />
+    <%= f.text_field :population %>
+  </p>
+  <p>
+    <%= f.label :area %><br />
+    <%= f.text_field :area %>
+  </p>
+  <p>
+    <%= f.label :region_id %><br />
+    <%= f.text_field :region_id %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @country %> |
+<%= link_to 'Back', countries_path %>

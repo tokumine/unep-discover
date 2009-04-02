@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<%= javascript_include_tag 'jquery-1.3.1.min', 'jquery.cycle.all.min', 'jquery.easing.1.3', 'cufon-yui', 'Futura_Bk_400.font', 'application' %>
+	<%= stylesheet_link_tag 'blueprint/screen','unep-wcmc' %>
+	<!--[if IE]><%= stylesheet_link_tag 'blueprint/ie.css' %><![endif]-->
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>United Nations World Conservation Monitoring Centre | Home</title>
+	<!-- Copyright 2001, 2002, 2003, 2004, 2005 Macromedia, Inc. All rights reserved. -->
+	
+	<script type="text/javascript">
+$(document).ready(function() {
+		//SETUP THE CYCLE PLUGIN
+	$(function() {
+    $('#slideshow').cycle({
+				fx: 'fade',
+        speed:       1000,
+        timeout:     0,
+        pager:      '#nav',
+        pagerEvent: 'mouseover',
+				pagerAnchorBuilder: pagerFactory
+    });
+	
+		//OVERRIDE THE STANDARD NUMERICAL PAGING WITH CUSTOMER PAGINATION LABELS
+    function pagerFactory(idx, slide) {
+      switch(idx)
+						{
+						case 0:
+							return '<li id="decisions"><h6><%= link_to @themes[0].try(:title), @themes[0], :id => "whiteLi" %></h6></li>';
+							break;    
+						case 1:
+							return '<li id="knowledge"><h6><%= link_to @themes[1].try(:title), @themes[1], :id => "whiteLi" %></h6></li>';
+							break;
+						case 2:
+							return '<li id="information"><h6><%= link_to @themes[2].try(:title), @themes[2], :id => "whiteLi" %></h6></li>';
+							break;
+						case 3:
+							return '<li id="partnership"><h6><%= link_to @themes[3].try(:title), @themes[3], :id => "whiteLi" %></h6></li>';
+							break;
+						case 4:
+							return '<li id="harmful"><h6><%= link_to @themes[4].try(:title), @themes[4], :id => "whiteLi" %></h6></li>';
+							break;
+						case 5:
+							return '<li id="resource"><h6><%= link_to @themes[5].try(:title), @themes[5], :id => "whiteLi" %></h6</li>';
+							break;		
+						default:
+							break;
+						}
+    };
+	});
+	
+	//SETUP INITIAL COLORS FOR MOUSEOVERS
+	$('#decisions').addClass("decisions_style");		
+	
+	//MOUSEOVER COLORS
+	$('#decisions').mouseover(function(){
+		remove_css();	
+		$(this).addClass("decisions_style");		
+	});
+	
+	$('#knowledge').mouseover(function(){
+		remove_css();	
+		$(this).addClass("knowledge_style");		
+	});
+	
+	$('#information').mouseover(function(){
+		remove_css();
+		$(this).addClass("information_style");		
+	});
+	
+	$('#partnership').mouseover(function(){
+		remove_css();	
+		$(this).addClass("partnership_style");		
+	});
+
+	$('#harmful').mouseover(function(){
+		remove_css();	
+		$(this).addClass("knowledge_style");		
+	});
+
+	$('#resource').mouseover(function(){
+		remove_css();	
+		$(this).addClass("decisions_style");		
+	});
+
+	//RESET ALL CSS
+	function remove_css(){
+			$('#decisions').removeClass("decisions_style");
+			$('#knowledge').removeClass("knowledge_style");
+			$('#information').removeClass("information_style");
+			$('#partnership').removeClass("partnership_style");
+			$('#harmful').removeClass("knowledge_style");
+			$('#resource').removeClass("decisions_style");
+		}
+});
+</script>
+</head>
+
+<body>
+
+
+<div class="container" style="border-top:5px solid #40668b;">
+	<!-- TOP BAR WITH LOGO -->
+
+
+
+    <div class="span-23 last" id="headerBg">
+    <div class="span-5" style="height:82px;">
+			<%= link_to image_tag("unep_one_data_logo.png", :id => "logo"), root_url %>
+    </div>
+    <div class="span-18 last" >
+<form style="margin-top:2em; margin-right:2em; float:right;">
+       	  <input type="text" class="text mini_search" style="width:150px" name="search" /> <input type="submit" value="search" />
+        </form>
+    </div>
+    </div>
+    <div class="clear">&nbsp;</div>
+    
+    <!-- NICE BANNER IMAGE -->
+    <% @themes.each_with_index do |theme, index| %>
+		<div class="span-7 append-bottom <%= 'append-1' if (index+1)%3 != 0 %> <%= 'last' if (index+1)%3 == 0%>">
+
+						<div style="position:relative;" class="hover_text">
+							<%= link_to image_tag(theme.image.url(:span7_low), :class => "main_image"), theme %>
+							<div class="transparent_grey low" style="display:none;">
+								<p>
+									<%= link_to truncate(theme.description,130), theme, :style => "color:white;text-decoration:none;"  %>
+									<%= link_to image_tag("icons/page_edit.png"), edit_theme_path(theme) %>
+								  <%= link_to image_tag("icons/delete.png"), theme, :confirm => 'Are you sure?', :method => :delete %>
+								</p>
+
+							</div>
+							<div class="transparent_black">
+								<h2 class="cufon" style="color:#fff; margin:0;padding:0;"><%= link_to theme.title, theme %></h2>
+								<h4 class="cufon"><%= h pluralize(theme.questions.size, 'question') %></h4>
+							</div>						
+						</div>
+
+
+
+		</div>
+		<% end -%>
+	
+    <!-- WHITE SPACE -->
+
+	
+    <!-- 3 COL CONTENT WITH WRAPPER -->
+    
+    <div class="span-23">
+          <div class="span-7 colborder ">
+
+					<hr class="dark_blue_top"/>
+            
+          <h2 class="cufon" style="color:#003366">Latest Questions</h2>
+						<% @questions.each do |q| %>
+							<% if q.has_photo? %>
+								<%= link_to image_tag(q.first_photo.image.url(:flickr), :style => "float:left; margin-right:10px"), [q.theme, q] %><span class="quiet small"><%= q.created_at.to_date.to_s(:short)%>, <%= link_to q.theme.title, q.theme, :class => "quiet" %> </span>
+								
+								<h6><%= link_to truncate(q.title,90), [q.theme, q]%> </h6>
+							<% else -%>
+							<span class="quiet small"><%= q.created_at.to_date.to_s(:short)%>, <%= link_to q.theme.title, q.theme, :class => "quiet" %> </span>
+								<h6><%= link_to q.title, [q.theme, q]%></h6>
+	          	<% end -%>
+							<div class="clear">&nbsp;</div>
+							<hr>
+	
+						<% end -%>
+        </div>
+        
+        <div class="span-7 colborder">
+       		<hr class="light_blue_top"/>
+            <h2  class="cufon" style="color:#40668b">Data Catalogue</h2>
+            
+						<% @map_data.each do |map_datum| %>
+
+	          <div class="span-7 last append-bottom">     
+		<span class="quiet small"><%= map_datum.created_at.to_date.to_s(:long)%></span>       
+	                <h6><%= link_to map_datum.title, [map_datum.map.content.question.theme, map_datum.map.content.question] %> <span class="quiet"> <%= link_to pluralize(map_datum.map_layers.size, "layer"), map_datum.map.content.question.theme, :class => "quiet" %></span>
+	                </h6>
+	
+	          </div>
+						<% end -%>
+	      </div>
+        
+        <div class="span-6 box last">
+            <h2  class="cufon" style="color:#003366">News</h2>
+									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sit amet lectus et diam lobortis aliquet. Nullam faucibus. Vivamus condimentum lorem posuere velit. Integer mollis purus eget nibh. Fusce sed eros vitae felis interdum rutrum. Integer dignissim sollicitudin dui. Duis molestie. In fermentum. Vivamus adipiscing velit a nibh. Quisque iaculis.</p>
+									
+									<p>Vivamus condimentum lorem posuere velit. Integer mollis purus eget nibh. Fusce sed eros vitae felis interdum rutrum. </p>
+			      
+        </div> 
+  </div>
+       
+<%= render :partial => 'layouts/footer' %>
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+<% if !content.photos.try(:empty?) %>
+	<% content.photos.each_with_index do |photo, index| %>
+		<div class="span-7 <%='last' if index % 2 == 1 %> <%='colborder' if index % 2 == 0 %> ">
+			<div class="image_wrap">
+		<%= link_to image_tag(photo.image.url(:span7), :class => "main_image"), [content.becomes(Content), photo]%>
+			<div class="image_name"><%= link_to photo.name, [content.becomes(Content), photo] %>
+				<%= link_to image_tag("icons/bullet_delete.png"), [content.becomes(Content), photo], :method => "delete", :confirm => "are you sure?" %>
+			</div>
+			</div>
+		</div>						
+	<% end -%>
+<% end -%>
+<div class="clear"></div>

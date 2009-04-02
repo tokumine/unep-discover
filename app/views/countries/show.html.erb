@@ -1,0 +1,38 @@
+<p>
+  <b>Name:</b>
+  <%=h @country.name %>
+</p>
+
+<p>
+  <b>Iso:</b>
+  <%=h @country.iso %>
+</p>
+
+<p>
+  <b>Iso 3:</b>
+  <%=h @country.iso_3 %>
+</p>
+
+<p>
+  <b>Capital:</b>
+  <%=h @country.capital %>
+</p>
+
+<p>
+  <b>Population:</b>
+  <%=h @country.population %>
+</p>
+
+<p>
+  <b>Area:</b>
+  <%=h @country.area %>
+</p>
+
+<p>
+  <b>Region:</b>
+  <%=h @country.region_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_country_path(@country) %> |
+<%= link_to 'Back', countries_path %>
