@@ -165,11 +165,11 @@ img.polaroid{
 	font-size:1.4em;
 }
 
-.transparent_black .cufon{
+.transparent_black .cufon, .transparent_question .cufon{
 	color:#fff;
 }
 
-.transparent_black .cufon a {
+.transparent_black .cufon a, .transparent_question .cufon a {
 	color:#fff;
 }
 
