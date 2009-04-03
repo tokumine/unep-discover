@@ -141,18 +141,19 @@ img.polaroid{
 }
 
 .transparent_black{
-	position:absolute; bottom:0; left:0; padding:1em;background: transparent url("../images/transparent_back.png"); width:249px; color:white; font-weight:bold;font-size:0.8em;
+	position:absolute; bottom:0; left:0; margin: 0 1px 1px 1px; padding:10px; background: transparent url("../images/transparent_back.png");	 width:248px; color:white; font-weight:bold;
 }
 
 .transparent_grey{
-	position:absolute; top:0; left:0; padding:1em;background: transparent url("../images/transparent_back.png"); width:244px; color:white; font-size:1em; height:191px;
+	position:absolute; top:0; left:0; margin:0 1px 1px 1px; padding:10px 10px 15px 10px;background: transparent url("../images/transparent_back.png"); width:248px; color:white; font-size:1em; height:244px;
 }
 
 .transparent_question{
 	background: url("../images/transparent_back.png");
-	padding:1em;	
+	 width:248px;
+	padding:10px;
+	margin: 0 1px;
 	position:absolute; bottom:20px; left:0;
-	font-size:0.8em;
 }
 .transparent_question a {
 	color: #fff;
