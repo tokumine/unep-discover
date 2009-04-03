@@ -2,8 +2,8 @@
 	<div class="button_bar">
 	<span class="loud">Add: </span>
 		<%= link_to "New content", "#", :class=> "add_info_button" %>, 
-		<%= link_to "Edit title", edit_theme_question_path(@theme, @question)%>
-		
+		<%= link_to "Edit title", edit_theme_question_path(@theme, @question)%>,
+		<%= link_to "Delete question", theme_question_path(@theme, @question), :method => :delete, :confirm => "Are you sure you want to delete this question? THIS CANNOT BE UNDONE."%>
 	</div>
 <% end -%>
 
