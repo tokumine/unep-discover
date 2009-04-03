@@ -152,6 +152,7 @@ img.polaroid{
 	background: url("../images/transparent_back.png");
 	padding:1em;	
 	position:absolute; bottom:20px; left:0;
+	font-size:0.8em;
 }
 .transparent_question a {
 	color: #fff;
