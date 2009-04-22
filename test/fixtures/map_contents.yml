@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  map_id: 1
+  map_layer_id: 1
+  state: active
+
+two:
+  map_id: 1
+  map_layer_id: 1
+  state: inactive

@@ -175,7 +175,7 @@ $(document).ready(function() {
 
 	          <div class="span-7 last append-bottom">     
 		<span class="quiet small"><%= map_datum.created_at.to_date.to_s(:long)%></span>       
-	                <h6><%= link_to map_datum.title, [map_datum.map.content.question.theme, map_datum.map.content.question] %> <span class="quiet"> <%= link_to pluralize(map_datum.map_layers.size, "layer"), map_datum.map.content.question.theme, :class => "quiet" %></span>
+	                <h6><%= link_to map_datum.title, '#' %> <span class="quiet"> <%= link_to pluralize(map_datum.map_layers.size, "layer"), '#', :class => "quiet" %></span>
 	                </h6>
 	
 	          </div>
