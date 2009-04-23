@@ -20,11 +20,12 @@
 	<div class="span-15">
 			<ul class="">
 			<% content.map_data.each do |map_datum| %>
+
 				<li><%= link_to map_datum.title, map_datum.url %> <%= link_to image_tag("icons/bullet_delete.png"), [content.becomes(Content), map_datum], :method => "delete", :confirm => "are you sure?"%>
 						<ul>
 						<% map_datum.map_layers.each do |layer| %>
 								<li>
-									<%= render :partial => 'layer', :locals => {:layer => layer} %>
+									<%= render :partial => 'layer', :locals => {:layer => layer, :map => content.map} %>
 								</li>
 						<% end -%>
 						</ul>

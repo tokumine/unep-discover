@@ -12,48 +12,53 @@ class MapDatum < ActiveRecord::Base
 
   # VALIDATION AND ASSOCIATIONS
   has_many :map_layers, :dependent => :destroy
+  has_many :contents, :uniq => true, :finder_sql => 'SELECT * FROM map_data
+                                             JOIN map_layers ON map_data.id = map_layers.map_datum_id
+                                             JOIN map_contents ON map_layers.id = map_contents.map_layer_id
+                                             JOIN maps ON maps.id = map_contents.map_id
+                                             Join contents ON contents.id = maps.content_id
+                                             WHERE map_data.id = #{id}'
   validates_presence_of :url
   validates_presence_of :title
   validates_format_of :url, :with => /^((http|https):\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/, :on => :create, :message => "is not a proper URL", :allow_blank => true
   validates_length_of :title, :minimum => 3
 
+
   # ENSURE THAT ON CREATE THE MAP HAS LAYERS
   def validate_on_create
     begin
-      map_xml = Nokogiri::XML(open(url))    
-      check_layers map_xml   # extract layers from the WMS.       
+      map_xml = Nokogiri::XML(open(url))  
+      check_layers map_xml
+      extract_keywords map_xml # extract keywords from WMS
+      extract_layers map_xml   # extract layers from the WMS.       
     rescue EmptyLayerException => e
       errors.add :url, "Map does not contain any layer information. Please try again."    
     rescue Exception => e
       errors.add :url, "Map URL XML did not parse correctly - is it incorrect? #{e.message}"
     end
   end
-  
-  def after_save
-    begin
-      map_xml = Nokogiri::XML(open(url))    
-      check_layers map_xml   # extract layers from the WMS.       
-    rescue EmptyLayerException => e
-      errors.add :url, "Map does not contain any layer information. Please try again."    
-    rescue Exception => e
-      errors.add :url, "Map URL XML did not parse correctly - is it incorrect? #{e.message}"
-    end
-  end
-  
-  # EXTRACT MAP KEYWORDS FROM THE XML FILE
-  def set_keywords map_xml
-    keywords = (map_xml.search("keyword").inject([]) { |arr,val| arr << val }).join(',')
-  end
-  
+      
   # CHECK THAT WMS HAS GIS LAYERS
   def check_layers map_xml
     layers = map_xml.search("Layer[queryable]")
     raise EmptyLayerException if layers.empty?
   end
+
+  # CHECK THAT MAP_DATUM OBJECT HAS LINKED MAP_LAYER ENTRIES
+  def check_map_layers
+    raise EmptyLaterException, "No layers present for this map data" if map_layers.empty?
+  end
+
+  # EXTRACT MAP KEYWORDS FROM THE XML FILE
+  def extract_keywords map_xml
+    keywords = (map_xml.search("keyword").inject([]) { |arr,val| arr << val }).join(',')
+  end
    
   # EXTRACT LAYERS FROM MAP 
-  def read_layers map_xml
-   layers = map_xml.search("Layer[queryable]")
+  # NOTE: DOES NOT SAVE THE LAYERS EXPLICITLY. RELIES ON SAVING MAP_DATUM OBJECT
+  # TO PERSIST THE MAP_LAYERS
+  def extract_layers map_xml
+    layers = map_xml.search("Layer[queryable]")
     raise EmptyLayerException if layers.empty?
 
     layers.each do |layer|
@@ -64,13 +69,25 @@ class MapDatum < ActiveRecord::Base
       eastlong = layer.search("eastBoundLongitude").first
       southlat = layer.search("southBoundLatitude").first
       northlat = layer.search("northBoundLatitude").first
-      map_layers.create :name => name.try(:content), 
+      map_layers << MapLayer.new(:name => name.try(:content), 
                             :title => title.try(:content), 
                             :abstract => abstract.try(:content), 
                             :west_bound_longitude => westlong.try(:content), 
                             :east_bound_longitude => eastlong.try(:content), 
                             :south_bound_latitude => southlat.try(:content), 
-                            :north_bound_latitude => northlat.try(:content)                            
+                            :north_bound_latitude => northlat.try(:content))                            
     end 
-  end  
+  end
+
+  
+  # LINKS A MAP DATA WITH A CONTENT. 
+  # AUTO GENERATES A FULL SET OF MAP_CONTENT ENTRIES TO BIND THE MAP_LAYERS AND CONTENT TOGETHER
+  def link_content content
+    check_map_layers
+    content.map.map_layers << map_layers
+    content.map.save
+    self.reload
+    content.reload
+  end
+    
 end

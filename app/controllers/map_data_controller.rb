@@ -42,77 +42,27 @@ class MapDataController < ApplicationController
     @map_datum = MapDatum.find(params[:id])
   end
 
-  # POST /map_data
-  # POST /map_data.xml
+  # THIS METHOD TESTS FOR MAPDATA EXISTENCE AND IF DOESNT EXIST CREATES AND LINKS
+  # IF DOES EXIST, RETRIVES AND LINKS
   def create
-    @map = MapDatum.new(params[:map_datum])
+    @map = MapDatum.find_by_url(params[:map_datum][:url])
     @content = Content.find(params[:content_id])
-    @content.map.map_data << @map
-    
-    #EXTRACT KEYWORDS
-    begin
-      map_xml = Nokogiri::XML(open(@map.url))
-      keywords = map_xml.search("keyword").inject([]) { |arr,val| arr << val }
-      @map.keywords = keywords.join(",")  
-    
-      #TEST FOR LAYERS
-      if map_xml.search("Layer[queryable]").empty?
-        flash[:notice] = "Map does not contain any layer information. Please try again."
-        redirect_to(new_content_map_datum_url(@content))
-        return
+    if !@map
+      @map = MapDatum.new(params[:map_datum])    
+      if @map.save
+        @map.link_content @content
+        flash[:notice] = 'Map data was successfully created.'
+        redirect_to([@content.question.theme, @content.question]) 
       else
-        layers = map_xml.search("Layer[queryable='1']")
-        layers.each do |layer|
-
-          name = layer.search("Name").first
-          title = layer.search("Title").first
-          abstract = layer.search("Abstract").first
-          westlong = layer.search("westBoundLongitude").first
-          eastlong = layer.search("eastBoundLongitude").first
-          southlat = layer.search("southBoundLatitude").first
-          northlat = layer.search("northBoundLatitude").first
-          @map.map_layers.create :name => name.try(:content), 
-                                :title => title.try(:content), 
-                                :abstract => abstract.try(:content), 
-                                :west_bound_longitude => westlong.try(:content), 
-                                :east_bound_longitude => eastlong.try(:content), 
-                                :south_bound_latitude => southlat.try(:content), 
-                                :north_bound_latitude => northlat.try(:content)                            
-        end
-      end 
-    rescue Exception => e
-      flash[:notice] = "Map URL did not yield XML - is it incorrect? #{e.message}"
-      redirect_to(new_content_map_datum_url(@content))
-      return
-    end
-
-    if @map.save
-      flash[:notice] = 'MapDatum was successfully created.'
-      redirect_to([@content.question.theme, @content.question]) 
-    else
-      render :action => "new" 
-    end
-  end
-
-
-
-
-  # PUT /map_data/1
-  # PUT /map_data/1.xml
-  def update
-    @map_datum = MapDatum.find(params[:id])
-
-    respond_to do |format|
-      if @map_datum.update_attributes(params[:map_datum])
-        flash[:notice] = 'MapDatum was successfully updated.'
-        format.html { redirect_to(@map_datum) }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @map_datum.errors, :status => :unprocessable_entity }
+        render :action => "new" 
       end
-    end
+    else
+      @map.link_content @content
+      flash[:notice] = 'Map data was successfully linked.'
+      redirect_to([@content.question.theme, @content.question])
+    end  
   end
+
 
   # DELETE /map_data/1
   # DELETE /map_data/1.xml

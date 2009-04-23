@@ -1,16 +1,16 @@
 class MapLayersController < ApplicationController
 
   def activate
-    @map = MapLayer.find params[:id]
-    @map.activate
-    render :partial => "questions/layer", :locals => {:layer => @map}    
+    @map_content = MapContent.first :conditions => ["map_id = ? AND map_layer_id = ?", params[:map_id], params[:id]]
+    @map_content.activate 
+    render :partial => "questions/layer", :locals => {:layer => @map_content.map_layer, :map => @map_content.map}    
   end
   
   
   def deactivate
-    @map = MapLayer.find params[:id]
-    @map.deactivate
-    render :partial => "questions/layer", :locals => {:layer => @map}    
+    @map_content = MapContent.first :conditions => ["map_id = ? AND map_layer_id = ?", params[:map_id], params[:id]]
+    @map_content.deactivate 
+    render :partial => "questions/layer", :locals => {:layer => @map_content.map_layer, :map => @map_content.map}    
   end
 
 

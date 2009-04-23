@@ -1,5 +1,5 @@
-<%= "<span class='quiet'><strike>" if layer.inactive? %>
+<%= "<span class='quiet'><strike>" if layer.inactive?(map) %>
 <%= layer.title %> 
-<%= "</strike></span>" if layer.inactive? %> 
-<%= link_to "activate", activate_map_layer_path(layer), :class => "activate_button"  if layer.inactive?%>
-<%= link_to "deactivate", deactivate_map_layer_path(layer), :class => "activate_button" if layer.active? %>
+<%= "</strike></span>" if layer.inactive?(map) %> 
+<%= link_to "activate", activate_map_layer_path(layer, {:map_id => map}), :class => "activate_button"  if layer.inactive?(map)%>
+<%= link_to "deactivate", deactivate_map_layer_path(layer, {:map_id => map}), :class => "activate_button" if layer.active?(map) %>
