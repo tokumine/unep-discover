@@ -56,9 +56,12 @@ class MapDataController < ApplicationController
       else
         render :action => "new" 
       end
-    else
+    elsif !@map.contents.include? @content 
       @map.link_content @content
       flash[:notice] = 'Map data was successfully linked.'
+      redirect_to([@content.question.theme, @content.question])
+    else
+      flash[:notice] = 'Map data already linked.'
       redirect_to([@content.question.theme, @content.question])
     end  
   end
@@ -68,8 +71,15 @@ class MapDataController < ApplicationController
   # DELETE /map_data/1.xml
   def destroy
     @map_datum = MapDatum.find(params[:id])
-    @map_datum.destroy
     @content = Content.find(params[:content_id])
+    
+    #DELETE ONLY LINKS IF THERE ARE LINKS ONLY
+    if @map_datum.contents.length > 1
+      @map_datum.destroy_links @content
+    else   # DELETE ALL INCLUDING DATA IF ITS THE LAST ONE
+      @map_datum.destroy      
+    end  
+
     flash[:notice] = 'Map Data was successfully deleted.'
     
     respond_to do |format|

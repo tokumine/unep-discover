@@ -18,6 +18,7 @@ class MapDatum < ActiveRecord::Base
                                              JOIN maps ON maps.id = map_contents.map_id
                                              Join contents ON contents.id = maps.content_id
                                              WHERE map_data.id = #{id}'
+                                   
   validates_presence_of :url
   validates_presence_of :title
   validates_format_of :url, :with => /^((http|https):\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/, :on => :create, :message => "is not a proper URL", :allow_blank => true
@@ -79,6 +80,10 @@ class MapDatum < ActiveRecord::Base
     end 
   end
 
+  def destroy_links content
+    MapContent.delete_all(["map_id = ? AND map_layer_id IN (?)",content.map.id, map_layers.collect{|e| e.id}])
+  end
+  
   
   # LINKS A MAP DATA WITH A CONTENT. 
   # AUTO GENERATES A FULL SET OF MAP_CONTENT ENTRIES TO BIND THE MAP_LAYERS AND CONTENT TOGETHER
