@@ -8,8 +8,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :map_layers, :member => {:activate => :put, :deactivate => :put}
   map.resources :countries  
   map.resources :regions
-  map.resources :map_data
-
+  map.resources :map_data, :member => {:questions => :get} 
+  
   map.resources :contents do |content|
     content.resources :map_data
     content.resources :tables

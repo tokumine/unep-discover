@@ -169,16 +169,22 @@ $(document).ready(function() {
         
         <div class="span-7 colborder">
        		<hr class="light_blue_top"/>
-            <h2  class="cufon" style="color:#40668b">Data Catalogue</h2>
+            <h2  class="cufon" style="color:#40668b"><%= link_to "Data Catalogue", map_data_url %></h2>
             
 						<% @map_data.each do |map_datum| %>
 
-	          <div class="span-7 last append-bottom">     
-		<span class="quiet small"><%= map_datum.created_at.to_date.to_s(:long)%></span>       
-	                <h6><%= link_to map_datum.title, '#' %> <span class="quiet"> <%= link_to pluralize(map_datum.map_layers.size, "layer"), '#', :class => "quiet" %></span>
-	                </h6>
-	
-	          </div>
+						<div class="span-7 append-bottom">
+							<h4 class="cufon"><%= link_to map_datum.title, map_datum %></h4>
+								<span class="small quiet" >
+							
+								<hr style="margin-bottom:0;">
+								<%= link_to pluralize(map_datum.map_layers.length, "layer"), map_datum %>,
+								
+								used in <%= link_to pluralize(map_datum.questions.length, "question"), questions_map_datum_url(map_datum) %>.
+								</span>
+						</div>
+
+	        
 						<% end -%>
 	      </div>
         

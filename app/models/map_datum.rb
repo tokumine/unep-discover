@@ -18,6 +18,13 @@ class MapDatum < ActiveRecord::Base
                                              JOIN maps ON maps.id = map_contents.map_id
                                              Join contents ON contents.id = maps.content_id
                                              WHERE map_data.id = #{id}'
+  has_many :questions, :uniq => true, :finder_sql => 'SELECT * FROM map_data
+                                            JOIN map_layers ON map_data.id = map_layers.map_datum_id
+                                            JOIN map_contents ON map_layers.id = map_contents.map_layer_id
+                                            JOIN maps ON maps.id = map_contents.map_id
+                                            JOIN contents ON contents.id = maps.content_id
+                                            JOIN questions ON questions.id = contents.question_id
+                                            WHERE map_data.id = #{id}'
                                    
   validates_presence_of :url
   validates_presence_of :title

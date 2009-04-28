@@ -4,7 +4,7 @@ class MapDataController < ApplicationController
   # GET /map_data
   # GET /map_data.xml
   def index
-    @map_data = MapDatum.all
+    @map_data = MapDatum.paginate :page => params[:page], :order => "created_at DESC"
 
     respond_to do |format|
       format.html # index.html.erb
@@ -19,7 +19,7 @@ class MapDataController < ApplicationController
     @map_datum = MapDatum.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html { render :action => "show", :layout => "themes"}
       format.xml  { render :xml => @map_datum }
       format.json { render :json => @map_datum.to_json(:only => [:url,:title])}
     end

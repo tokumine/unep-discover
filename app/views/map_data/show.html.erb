@@ -1,13 +1,72 @@
-<p>
-  <b>Url:</b>
-  <%=h @map_datum.url %>
-</p>
 
-<p>
-  <b>Question:</b>
-  <%=h @map_datum.question_id %>
-</p>
+<% content_for :theme_body do %>
+<div class="span-23">MAP GOES HERE</div>
 
+<div class="ref_details span-15 colborder">
+	<h3 class="cufon"><%= @map_datum.title %></h3>
+	
+	<table class="client_ref_show">
+		
+		<tr>
+			<td><h6>Added</h6></td>
+			<td>
+				<%= @map_datum.created_at.to_date.to_s(:long) %>
+			</td>
+		</tr>
+		
+		<% if !@map_datum.description.blank? %>
+		<tr>
+			<td><h6>Description</h6></td>
+			<td>
+				<%= RedCloth.new(@map_datum.description).to_html %>
+			</td>
+		</tr>
+		<% end -%>
+		
+		<tr>
+			<td><h6>Layers</h6></td>
+			<td>
+				<% @map_datum.map_layers.each do |md| %>
+					<%= md.title %>,<br />
+				<% end -%>	
+			</td>
+		</tr>
+	
+		
+		</table>
+</div>
 
-<%= link_to 'Edit', edit_map_datum_path(@map_datum) %> |
-<%= link_to 'Back', map_data_path %>
+<div class="span-7 last">
+	<div class="box ">
+		<!-- RESOURCES -->
+	
+			<h5><%= image_tag "icons/world_link.png" %> Online Resource</h5>
+			<ul>
+					<li>					
+							<%= link_to "WMS service", @map_datum.url, :target => "_blank" %>
+					</li>
+				
+			</ul>
+	</div>
+	
+		<!-- Categories -->
+			<hr>
+			<h5><%= image_tag "icons/map.png" %> Questions that use this data</h5>
+				<% @map_datum.questions.each do |q| %> 
+				<% if q.has_photo? %>
+					<%= link_to image_tag(q.first_photo.image.url(:flickr), :style => "float:left; margin-right:10px"), [q.theme, q] %><span class="quiet small"><%= q.created_at.to_date.to_s(:short)%>, <%= link_to q.theme.title, q.theme, :class => "quiet" %> </span>
+					
+					<h6><%= link_to truncate(q.title,90), [q.theme, q]%> </h6>
+				<% else -%>
+				<span class="quiet small"><%= q.created_at.to_date.to_s(:short)%>, <%= link_to q.theme.title, q.theme, :class => "quiet" %> </span>
+					<h6><%= link_to q.title, [q.theme, q]%></h6>
+      	<% end -%>
+				<div class="clear">&nbsp;</div>
+				<hr>				
+				<% end -%>
+
+				<div class="clear">&nbsp;</div>
+	
+</div>	
+
+<% end -%>
