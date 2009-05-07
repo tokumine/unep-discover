@@ -9,6 +9,9 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :countries  
   map.resources :regions
   map.resources :map_data, :member => {:questions => :get} 
+  map.resources :map_data do |md|
+    md.resources :map_layers
+  end
   
   map.resources :contents do |content|
     content.resources :map_data

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090421083128) do
+ActiveRecord::Schema.define(:version => 20090506155124) do
 
   create_table "contents", :force => true do |t|
     t.string   "type"
@@ -86,6 +86,13 @@ ActiveRecord::Schema.define(:version => 20090421083128) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "state"
+  end
+
+  create_table "map_projections", :force => true do |t|
+    t.string   "crs"
+    t.integer  "map_layer_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "maps", :force => true do |t|

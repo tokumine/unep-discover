@@ -29,6 +29,27 @@ $(document).ready(function() {
 		function(){
 			$(".transparent_grey").fadeOut("fast");
 	});
+
+	$('.map_layer').qtip({ style: { border: {
+	         width: 3,
+	         radius: 6,
+	         color: '#6699CC'
+	      },name: 'blue', tip: true }, position: {
+	      corner: {
+	         target: 'bottomLeft',
+	         tooltip: 'topLeft'
+	      }
+	   } 
+	});
+	
+	$('.map_layer').hover(
+		function () {
+	        $(this).css('background', '#FFF6C5');
+	      }, 
+	      function () {
+	        $(this).css('background', 'white');
+	      }	
+	);
 	
 });
 

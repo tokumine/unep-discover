@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? %>
-	<%= javascript_include_tag 'jquery-1.3.1.min', 'jquery.cycle.all.min', 'jquery.easing.1.3', 'cufon-yui', 'Futura_Bk_400.font', "swfobject", 'application' %>
+	<%= javascript_include_tag 'jquery-1.3.1.min', 'jquery.cycle.all.min', 'jquery.easing.1.3', 'cufon-yui', 'Futura_Bk_400.font', "swfobject", 'jquery.qtip-1.0.0-rc2.min', 'application' %>
 	<%= stylesheet_link_tag 'blueprint/screen', 'blueprint/plugins/buttons/screen','unep-wcmc' %>
 <!--[if IE]><%= stylesheet_link_tag 'blueprint/ie.css' %><![endif]-->
 

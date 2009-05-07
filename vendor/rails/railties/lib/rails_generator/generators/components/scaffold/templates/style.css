@@ -52,3 +52,16 @@ a:hover { color: #fff; background-color:#000; }
   list-style: square;
 }
 
+.map_label{
+	color: #3E6D8E;
+	background-color: #E0EAF1;
+	border-bottom: 1px solid #3E6D8E;
+	border-right: 1px solid #7F9FB6;
+	margin: 2px 2px 2px 0;
+	padding: 3px 4px 3px 4px;
+	text-decoration: none;
+	font-size: 90%;
+	line-height: 2.2;
+	white-space:nowrap;
+}
+

@@ -343,3 +343,17 @@ table.client_ref_show tbody h6 {font-size:1em; color:#222}
   margin-right: 1em; }
 .flickr_pagination .next_page {
   margin-left: 1em; }
+
+.map_label{
+	color: #3E6D8E;
+	background-color: #E0EAF1;
+	border-bottom: 1px solid #3E6D8E;
+	border-right: 1px solid #7F9FB6;
+	margin: 2px 2px 2px 0;
+	padding: 1px 3px 1px 3px;
+	text-decoration: none;
+	font-size: 90%;
+	line-height: 2.2;
+	white-space:nowrap;
+}
+

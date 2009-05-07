@@ -25,6 +25,7 @@ class MapDatum < ActiveRecord::Base
                                             JOIN contents ON contents.id = maps.content_id
                                             JOIN questions ON questions.id = contents.question_id
                                             WHERE map_data.id = #{id}'
+                                            
                                    
   validates_presence_of :url
   validates_presence_of :title
@@ -38,7 +39,8 @@ class MapDatum < ActiveRecord::Base
       map_xml = Nokogiri::XML(open(url))  
       check_layers map_xml
       extract_keywords map_xml # extract keywords from WMS
-      extract_layers map_xml   # extract layers from the WMS.       
+      extract_layers map_xml   # extract layers from the WMS.   
+  
     rescue EmptyLayerException => e
       errors.add :url, "Map does not contain any layer information. Please try again."    
     rescue Exception => e
@@ -77,13 +79,21 @@ class MapDatum < ActiveRecord::Base
       eastlong = layer.search("eastBoundLongitude").first
       southlat = layer.search("southBoundLatitude").first
       northlat = layer.search("northBoundLatitude").first
-      map_layers << MapLayer.new(:name => name.try(:content), 
+      ml = MapLayer.new(:name => name.try(:content), 
                             :title => title.try(:content), 
                             :abstract => abstract.try(:content), 
                             :west_bound_longitude => westlong.try(:content), 
                             :east_bound_longitude => eastlong.try(:content), 
                             :south_bound_latitude => southlat.try(:content), 
-                            :north_bound_latitude => northlat.try(:content))                            
+                            :north_bound_latitude => northlat.try(:content))
+      #RIP OUT LAYERS
+      layer.search("CRS", "SRS").each do |crs|
+        ml.map_projections << MapProjection.new(:crs => crs.try(:content))        
+      end            
+      
+      #FINALLY ADD MAP LAYERS TO MAP                                      
+      map_layers << ml                      
+      
     end 
   end
 
@@ -101,5 +111,11 @@ class MapDatum < ActiveRecord::Base
     self.reload
     content.reload
   end
+  
+  def google_map?
+    
+  end
+  
+  
     
 end

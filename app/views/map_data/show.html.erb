@@ -26,8 +26,12 @@
 		<tr>
 			<td><h6>Layers</h6></td>
 			<td>
-				<% @map_datum.map_layers.each do |md| %>
-					<%= md.title %>,<br />
+				<% @map_datum.map_layers.each do |ml| %>
+				<div class="map_layer" title="Map Layer Details (TODO)">
+					<%= link_to ml.title, map_datum_map_layer_path(@map_datum, ml) %>
+					<%= google_label ml %>
+					<%= wgs_label ml %>
+				</div>
 				<% end -%>	
 			</td>
 		</tr>
