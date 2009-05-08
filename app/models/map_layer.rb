@@ -25,9 +25,11 @@ class MapLayer < ActiveRecord::Base
     end
   end
   
+  #CHOP OFF ANY URL ARGUMENTS
   def url
-    map_datum.url
+      map_datum.url.split("?").first
   end
+  
   #m.to_json(:include => {:map_layers => {:methods => :map_server}})
   #m.to_json :only => [:title, :url], :include => {:map_layers => {:only => [:name, :title, :google]}}
   
