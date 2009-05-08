@@ -21,7 +21,7 @@ class MapDataController < ApplicationController
     respond_to do |format|
       format.html { render :action => "show", :layout => "themes"}
       format.xml  { render :xml => @map_datum }
-      format.json { render :json => @map_datum.to_json(:only => [:url,:title])}
+      format.json { render :json => @map_datum.map_layers.google.to_json(:only => [:name, :title], :methods => [:google_map_projection,:url])}
     end
   end
 
