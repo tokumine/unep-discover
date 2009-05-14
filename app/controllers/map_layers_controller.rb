@@ -31,7 +31,7 @@ class MapLayersController < ApplicationController
     @map_layer = MapLayer.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html { render 'show', :layout => false}
       format.xml  { render :xml => @map_layer }
     end
   end

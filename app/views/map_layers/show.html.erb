@@ -1,43 +1,18 @@
 <p>
-  <b>Name:</b>
-  <%=h @map_meta.name %>
+<label>Title</label><br>
+	<%= @map_layer.name %>
 </p>
+
+<% unless @map_layer.abstract.blank?%>
+<p>
+<label>Abstract</label><br>
+	<%= @map_layer.abstract %>
+</p>
+<% end -%>
 
 <p>
-  <b>Title:</b>
-  <%=h @map_meta.title %>
+<label>Supported projections</label><br>
+	<% @map_layer.map_projections.each do |p| %>
+		<%= p.crs %><br />
+	<% end -%>
 </p>
-
-<p>
-  <b>Abstract:</b>
-  <%=h @map_meta.abstract %>
-</p>
-
-<p>
-  <b>Westboundlongitude:</b>
-  <%=h @map_meta.westBoundLongitude %>
-</p>
-
-<p>
-  <b>Eastboundlongitude:</b>
-  <%=h @map_meta.eastBoundLongitude %>
-</p>
-
-<p>
-  <b>Northboundlongitude:</b>
-  <%=h @map_meta.northBoundLongitude %>
-</p>
-
-<p>
-  <b>Southboundlongitude:</b>
-  <%=h @map_meta.southBoundLongitude %>
-</p>
-
-<p>
-  <b>Map datum:</b>
-  <%=h @map_meta.map_datum_id %>
-</p>
-
-
-<%= link_to 'Edit', edit_map_meta_path(@map_meta) %> |
-<%= link_to 'Back', map_metas_path %>
