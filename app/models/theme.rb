@@ -14,7 +14,9 @@ class Theme < ActiveRecord::Base
                                   :tiny => "25x25>",
                                   :flickr => "90x90#",
                                   :icon => "16x16#" },
-                    :url => "/images/resources/:class/:attachment/:id/:style_:basename.:extension",
-                    :path => ":rails_root/public/images/resources/:class/:attachment/:id/:style_:basename.:extension"
-
+                                  :storage => :s3,
+                                  :s3_credentials => "#{RAILS_ROOT}/config/s3.yml",  
+                                  :bucket => "unep-discover",
+                                  :path => "resources/:class/:attachment/:id/:style_:basename.:extension"              
+                   
 end

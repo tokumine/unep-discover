@@ -39,7 +39,7 @@ module Paperclip
         @queued_for_write.each do |style, file|
           file.close
           FileUtils.mkdir_p(File.dirname(path(style)))
-          logger.info("[paperclip] saving #{path(style)}")
+          log("saving #{path(style)}")
           FileUtils.mv(file.path, path(style))
           FileUtils.chmod(0644, path(style))
         end
@@ -49,7 +49,7 @@ module Paperclip
       def flush_deletes #:nodoc:
         @queued_for_delete.each do |path|
           begin
-            logger.info("[paperclip] deleting #{path}")
+            log("deleting #{path}")
             FileUtils.rm(path) if File.exist?(path)
           rescue Errno::ENOENT => e
             # ignore file-not-found, let everything else pass
@@ -62,7 +62,7 @@ module Paperclip
           rescue Errno::EEXIST, Errno::ENOTEMPTY, Errno::ENOENT, Errno::EINVAL, Errno::ENOTDIR
             # Stop trying to remove parent directories
           rescue SystemCallError => e
-            logger.info("[paperclip] There was an unexpected error while deleting directories: #{e.class}")
+            log("There was an unexpected error while deleting directories: #{e.class}")
             # Ignore it
           end
         end
@@ -140,13 +140,13 @@ module Paperclip
           @s3_host_alias  = @options[:s3_host_alias]
           @url            = ":s3_path_url" unless @url.to_s.match(/^:s3.*url$/)
         end
-        base.class.interpolations[:s3_alias_url] = lambda do |attachment, style|
+        Paperclip.interpolates(:s3_alias_url) do |attachment, style|
           "#{attachment.s3_protocol}://#{attachment.s3_host_alias}/#{attachment.path(style).gsub(%r{^/}, "")}"
         end
-        base.class.interpolations[:s3_path_url] = lambda do |attachment, style|
+        Paperclip.interpolates(:s3_path_url) do |attachment, style|
           "#{attachment.s3_protocol}://s3.amazonaws.com/#{attachment.bucket_name}/#{attachment.path(style).gsub(%r{^/}, "")}"
         end
-        base.class.interpolations[:s3_domain_url] = lambda do |attachment, style|
+        Paperclip.interpolates(:s3_domain_url) do |attachment, style|
           "#{attachment.s3_protocol}://#{attachment.bucket_name}.s3.amazonaws.com/#{attachment.path(style).gsub(%r{^/}, "")}"
         end
       end
@@ -171,7 +171,7 @@ module Paperclip
 
       def parse_credentials creds
         creds = find_credentials(creds).stringify_keys
-        (creds[ENV['RAILS_ENV']] || creds).symbolize_keys
+        (creds[RAILS_ENV] || creds).symbolize_keys
       end
       
       def exists?(style = default_style)
@@ -192,7 +192,7 @@ module Paperclip
       def flush_writes #:nodoc:
         @queued_for_write.each do |style, file|
           begin
-            logger.info("[paperclip] saving #{path(style)}")
+            log("saving #{path(style)}")
             key = s3_bucket.key(path(style))
             key.data = file
             key.put(nil, @s3_permissions, {'Content-type' => instance_read(:content_type)}.merge(@s3_headers))
@@ -206,7 +206,7 @@ module Paperclip
       def flush_deletes #:nodoc:
         @queued_for_delete.each do |path|
           begin
-            logger.info("[paperclip] deleting #{path}")
+            log("deleting #{path}")
             if file = s3_bucket.key(path)
               file.delete
             end

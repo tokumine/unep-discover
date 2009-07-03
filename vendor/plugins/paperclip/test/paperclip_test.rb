@@ -30,6 +30,14 @@ class PaperclipTest < Test::Unit::TestCase
       Paperclip.expects(:"`").with("convert one.jpg two.jpg 2>/dev/null")
       Paperclip.run("convert", "one.jpg two.jpg")
     end
+
+    should "log the command when :log_command is set" do
+      Paperclip.options[:log_command] = true
+      Paperclip.expects(:bit_bucket).returns("/dev/null")
+      Paperclip.expects(:log).with("this is the command 2>/dev/null")
+      Paperclip.expects(:"`").with("this is the command 2>/dev/null")
+      Paperclip.run("this","is the command")
+    end
   end
 
   should "raise when sent #processor and the name of a class that exists but isn't a subclass of Processor" do
@@ -42,6 +50,18 @@ class PaperclipTest < Test::Unit::TestCase
 
   should "return a class when sent #processor and the name of a class under Paperclip" do
     assert_equal ::Paperclip::Thumbnail, Paperclip.processor(:thumbnail)
+  end
+
+  should "call a proc sent to check_guard" do
+    @dummy = Dummy.new
+    @dummy.expects(:one).returns(:one)
+    assert_equal :one, @dummy.avatar.send(:check_guard, lambda{|x| x.one })
+  end
+
+  should "call a method name sent to check_guard" do
+    @dummy = Dummy.new
+    @dummy.expects(:one).returns(:one)
+    assert_equal :one, @dummy.avatar.send(:check_guard, :one)
   end
 
   context "Paperclip.bit_bucket" do
@@ -164,6 +184,44 @@ class PaperclipTest < Test::Unit::TestCase
           @dummy2.avatar.valid?
           assert_equal first_errors, @dummy2.avatar.errors
         end
+      end
+    end
+
+    context "a validation with an if guard clause" do
+      setup do
+        Dummy.send(:"validates_attachment_presence", :avatar, :if => lambda{|i| i.foo })
+        @dummy = Dummy.new
+      end
+
+      should "attempt validation if the guard returns true" do
+        @dummy.expects(:foo).returns(true)
+        @dummy.avatar.expects(:validate_presence).returns(nil)
+        @dummy.valid?
+      end
+
+      should "not attempt validation if the guard returns false" do
+        @dummy.expects(:foo).returns(false)
+        @dummy.avatar.expects(:validate_presence).never
+        @dummy.valid?
+      end
+    end
+
+    context "a validation with an unless guard clause" do
+      setup do
+        Dummy.send(:"validates_attachment_presence", :avatar, :unless => lambda{|i| i.foo })
+        @dummy = Dummy.new
+      end
+
+      should "attempt validation if the guard returns true" do
+        @dummy.expects(:foo).returns(false)
+        @dummy.avatar.expects(:validate_presence).returns(nil)
+        @dummy.valid?
+      end
+
+      should "not attempt validation if the guard returns false" do
+        @dummy.expects(:foo).returns(true)
+        @dummy.avatar.expects(:validate_presence).never
+        @dummy.valid?
       end
     end
 

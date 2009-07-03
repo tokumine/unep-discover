@@ -1,6 +1,5 @@
 require 'rubygems'
 require 'test/unit'
-gem 'thoughtbot-shoulda', ">= 2.9.0"
 require 'shoulda'
 require 'mocha'
 require 'tempfile'
@@ -17,6 +16,7 @@ end
 
 ROOT       = File.join(File.dirname(__FILE__), '..')
 RAILS_ROOT = ROOT
+RAILS_ENV  = "test"
 
 $LOAD_PATH << File.join(ROOT, 'lib')
 $LOAD_PATH << File.join(ROOT, 'lib', 'paperclip')
@@ -24,8 +24,6 @@ $LOAD_PATH << File.join(ROOT, 'lib', 'paperclip')
 require File.join(ROOT, 'lib', 'paperclip.rb')
 
 require 'shoulda_macros/paperclip'
-
-ENV['RAILS_ENV'] ||= 'test'
 
 FIXTURES_DIR = File.join(File.dirname(__FILE__), "fixtures") 
 config = YAML::load(IO.read(File.dirname(__FILE__) + '/database.yml'))
@@ -41,7 +39,7 @@ def reset_class class_name
 end
 
 def reset_table table_name, &block
-  block ||= lambda{ true }
+  block ||= lambda { |table| true }
   ActiveRecord::Base.connection.create_table :dummies, {:force => true}, &block
 end
 
@@ -71,7 +69,7 @@ def rebuild_class options = {}
 end
 
 def temporary_rails_env(new_env)
-  old_env = defined?(RAILS_ENV) ? RAILS_ENV : nil
+  old_env = Object.const_defined?("RAILS_ENV") ? RAILS_ENV : nil
   silence_warnings do
     Object.const_set("RAILS_ENV", new_env)
   end
@@ -79,4 +77,23 @@ def temporary_rails_env(new_env)
   silence_warnings do
     Object.const_set("RAILS_ENV", old_env)
   end
+end
+
+class FakeModel
+  attr_accessor :avatar_file_name,
+                :avatar_file_size,
+                :avatar_last_updated,
+                :avatar_content_type,
+                :id
+
+  def errors
+    @errors ||= []
+  end
+
+  def run_callbacks name, *args
+  end
+end
+
+def attachment options
+  Paperclip::Attachment.new(:avatar, FakeModel.new, options)
 end
