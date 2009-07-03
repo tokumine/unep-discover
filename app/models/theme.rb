@@ -17,6 +17,7 @@ class Theme < ActiveRecord::Base
                                   :storage => :s3,
                                   :s3_credentials => "#{RAILS_ROOT}/config/s3.yml",  
                                   :bucket => "unep-discover",
-                                  :path => "resources/:class/:attachment/:id/:style_:basename.:extension"              
+                                  :path => "resources/:class/:attachment/:id/:style_:basename.:extension",
+                                  :url => ":s3_domain_url"              
                    
 end
